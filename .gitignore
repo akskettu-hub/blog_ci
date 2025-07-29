@@ -3,6 +3,10 @@ node_modules/
 server/.env
 dist/
 client/dist/
+requests/
+client/package.json
+client/package-lock.json
+client/eslint.config.js
 
 # Playwright
 /test-results/
