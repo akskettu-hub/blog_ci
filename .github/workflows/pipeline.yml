@@ -20,4 +20,7 @@ jobs:
       - name: Say Hello
         run: echo "Hello"
 
+      - name: Install Dependencies
+        run: npm install
+
     
