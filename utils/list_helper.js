@@ -15,7 +15,7 @@ const mostBlogs = (blogs) => {
     
     for (let i = 0; i < blogs.length; i++) {
         
-        authorInAuthors = authors.find(item => item.author === blogs[i].author)
+        let authorInAuthors = authors.find(item => item.author === blogs[i].author)
         if (!authorInAuthors) {
             // Author not in authors. push an element to authors. blogs initialised as 1
             let authorObj = { author: blogs[i].author, blogs: 1}
@@ -35,6 +35,7 @@ const mostLikes = (blogs) => {
     let authors = {}
 
     for (const blog of blogs) {
+        // eslint-disable-next-line no-prototype-builtins
         if (!authors.hasOwnProperty(blog.author)){
             authors[blog.author] = blog.likes
         } else {
