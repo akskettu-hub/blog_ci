@@ -9,7 +9,9 @@
     "test:client": "vitest run",
     "test:server": "cross-env NODE_ENV=test node --test",
     "start:test": "NODE_ENV=test node index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:e2e": "playwright test --project=chromium",
+    "test:e2e-report": "playwright show-report"
   },
   "author": "Akseli Kettunen",
   "license": "ISC",
@@ -31,9 +33,11 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@eslint/js": "^9.32.0",
+    "@playwright/test": "^1.54.1",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.1.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",

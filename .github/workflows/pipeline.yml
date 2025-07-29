@@ -8,6 +8,9 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+env:
+  SKIP_CONDITION: ${{ contains(join(github.event.commits.*.message), '#skip') }}
+
 jobs:
   deployment_pipeline:
     runs-on: ubuntu-latest
@@ -38,6 +41,24 @@ jobs:
 
       - name: Backend Tests
         run: npm run test:server
+
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test --project=chromium
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Trigger deployment
+        if: ${{ env.SKIP_CONDITION == 'false' && github.event_name == 'push' }}
+    
+        run: echo "This would trigger depoyment"
 
   tag_release:
       if: ${{ !contains(join(github.event.commits.*.message), '#skip') && github.event_name == 'push' }}
