@@ -6,7 +6,8 @@
     "build:ui": "vite build --config ./client/vite.config.js",
     "start:server": "cross-env NODE_ENV=production node index.js",
     "dev:server": "cross-env NODE_ENV=development node --watch index.js",
-    "test": "cross-env NODE_ENV=test node --test",
+    "test:client": "vitest run",
+    "test:server": "cross-env NODE_ENV=test node --test",
     "start:test": "NODE_ENV=test node index.js",
     "lint": "eslint ."
   },
@@ -30,6 +31,9 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.0",
     "@eslint/js": "^9.32.0",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
@@ -40,6 +44,7 @@
     "jest": "^30.0.5",
     "jsdom": "^26.1.0",
     "supertest": "^7.1.4",
-    "vite": "^7.0.6"
+    "vite": "^7.0.6",
+    "vitest": "^3.2.4"
   }
 }
