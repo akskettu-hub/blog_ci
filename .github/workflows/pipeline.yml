@@ -27,5 +27,5 @@ jobs:
         run: npm run build:ui
 
       - name: Backend Tests
-        run: nmp run test
+        run: npm run test
     
