@@ -7,7 +7,7 @@ const info = (...params) => {
     
 }
 
-const errorLogger = (...params) => {
+const error = (...params) => {
     if (process.env.NODE_ENV !== 'test') {
         console.log(...params)
     } else {
@@ -15,4 +15,4 @@ const errorLogger = (...params) => {
     }
 }
 
-module.exports = { info, errorLogger }
+module.exports = { info, error }

@@ -18,28 +18,34 @@ blogsRouter.get('/:id', async (request, response) => {
   }
 })
 
-blogsRouter.post('/', userExtractor, async (request, response) => {
-  const body = request.body
+blogsRouter.post('/', userExtractor, async (request, response, next) => {
+  try {
+    const body = request.body
 
-  if (!request.user) {
-    return response.status(400).json({ error: 'userId missing or not valid' })
+    if (!request.user) {
+      return response.status(400).json({ error: 'userId missing or not valid' })
+    }
+
+    const blog = new Blog({
+      title: body.title,
+      author: body.author,
+      url: body.url,
+      likes: body.likes,
+      user: request.user._id
+    })
+
+    const savedBlog = await blog.save()
+    request.user.blogs = request.user.blogs.concat(savedBlog._id)  
+    await request.user.save()
+
+    const populatedBlog = await savedBlog.populate('user') 
+
+    response.status(201).json(populatedBlog)
+  } catch (error) {
+    next(error)
   }
-
-  const blog = new Blog({
-    title: body.title,
-    author: body.author,
-    url: body.url,
-    likes: body.likes,
-    user: request.user._id
-  })
-
-  const savedBlog = await blog.save()
-  request.user.blogs = request.user.blogs.concat(savedBlog._id)  
-  await request.user.save()
-
-  const populatedBlog = await savedBlog.populate('user') 
-
-  response.status(201).json(populatedBlog)
+  
+  
 })
 
 blogsRouter.delete('/:id', userExtractor, async (request, response) => {

@@ -25,4 +25,7 @@ jobs:
 
       - name: Build UI
         run: npm run build:ui
+
+      - name: Backend Tests
+        run: nmp run test
     

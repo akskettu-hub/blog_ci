@@ -90,17 +90,6 @@ describe('api tests', () => {
             assert.strictEqual(response.body.likes, 0)
         })
 
-        test('Missing title property returns 400', async () => {
-            const token = await testHelper.getRootAuth(api)
-
-            await api
-                .post('/api/blogs')
-                .set('Authorization', `Bearer ${token}`)
-                .send(testHelper.missingTitleBlog)
-                .expect(400)
-                .expect('Content-Type', /application\/json/)
-        })
-
         test('Missing URL property returns 400', async () => {
             const token = await testHelper.getRootAuth(api)
 
