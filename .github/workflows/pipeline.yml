@@ -37,5 +37,22 @@ jobs:
         run: npm run test:client
 
       - name: Backend Tests
-        run: npm run test
-    
+        run: npm run test:server
+
+  tag_release:
+      if: ${{ !contains(join(github.event.commits.*.message), '#skip') && github.event_name == 'push' }}
+      needs: [deployment_pipeline]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            ref: ${{ github.event.pull_request.merge_commit_sha }}
+            fetch-depth: '0'
+  
+        - name: Bump version and push tag
+          uses: anothrNick/github-tag-action@1.73.0
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            DEFAULT_BUMP: patch
+            PRERELEASE: true
+            DRY_RUN: false
