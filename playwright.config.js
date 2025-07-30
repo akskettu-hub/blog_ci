@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   webServer: {
-    command: 'npm run dev:server',
+    command: 'npm run start:test',
     url: 'http://localhost:3003/health',
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
